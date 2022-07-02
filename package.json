@@ -1,0 +1,27 @@
+{
+  "name": "@tomsd/postgresqlclient",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0",
+    "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/test.ts\" --timeout 30000"
+  },
+  "keywords": [
+    "postgresql"
+  ],
+  "author": "tom",
+  "license": "MIT",
+  "dependencies": {
+    "knex": "^2.1.0",
+    "pg": "^8.7.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^9.1.1",
+    "@types/uuid": "^8.3.4",
+    "dotenv": "^16.0.1",
+    "mocha": "^10.0.0",
+    "ts-node": "^10.8.1"
+  }
+}
