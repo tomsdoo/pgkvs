@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { PGClient } from "../src/postgresqlclient";
 const uri = process.env.POSTGRESQL_URI as string;
-const tableName = "testTable";
+const tableName = uuidv4();
 
 const client = new PGClient(uri, tableName);
 const testingId = uuidv4();
