@@ -38,6 +38,15 @@ export class PGClient {
         }
       );
   }
+  public async dropTable(){
+    return await this.pg
+      .schema
+      .dropTable(this.tableName)
+      .then((result: any) => {
+        this.initialized = false;
+        return result;
+      });
+  }
   public destroy(){
     this.pg.destroy();
   }

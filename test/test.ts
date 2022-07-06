@@ -19,7 +19,8 @@ const savingObj = {
 
 
 describe("PGClient", () => {
-  after(() => {
+  after(async () => {
+    await client.dropTable();
     client.destroy();
   });
 
