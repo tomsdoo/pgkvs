@@ -36,7 +36,7 @@ describe("PGClient", () => {
 
   it("getAll()", async () => {
     const records = await client.getAll();
-    assert(records.length > 0);
+    assert.equal(records.length, 1);
   });
 
   it("upsert()", async () => {
@@ -55,6 +55,11 @@ describe("PGClient", () => {
   it("remove()", async () => {
     const result = await client.remove(testingId);
     assert.equal(result, true);
+  });
+
+  it("getAll() after removal", async () => {
+    const records = await client.getAll();
+    assert.equal(records.length, 0);
   });
 
   it("get() after removal", async () => {
