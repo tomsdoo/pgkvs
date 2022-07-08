@@ -99,6 +99,7 @@ export class PGClient {
     }
   }
   public async remove(id: string){
+    await this.ensureInitialized();
     return await this.pg(this.tableName)
       .where({ id })
       .del()
