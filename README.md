@@ -1,5 +1,7 @@
 # @tomsd/postgresqlclient
 
+It's a handy postgresql client for easy-use.
+
 ## Installation
 ``` shell
 npm install @tomsd/postgresqlclient
