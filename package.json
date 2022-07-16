@@ -1,7 +1,7 @@
 {
   "name": "@tomsd/pgkvs",
   "version": "1.0.0",
-  "description": "",
+  "description": "It's a key value store handler that the repository is a postgresql database, for easy-use.",
   "main": "dist/cjs/pgkvs.js",
   "module": "dist/esm/pgkvs.js",
   "types": "dist/esm/pgkvs.d.ts",
