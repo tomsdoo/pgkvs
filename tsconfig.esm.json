@@ -6,6 +6,6 @@
     "outDir": "./dist/esm/",
   },
   "files":[
-    "src/postgresqlclient.ts"
+    "src/pgkvs.ts"
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "name": "@tomsd/postgresqlclient",
+  "name": "@tomsd/pgkvs",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/cjs/postgresqlclient.js",
-  "module": "dist/esm/postgresqlclient.js",
-  "types": "dist/esm/postgresqlclient.d.ts",
+  "main": "dist/cjs/pgkvs.js",
+  "module": "dist/esm/pgkvs.js",
+  "types": "dist/esm/pgkvs.d.ts",
   "scripts": {
     "build": "tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
     "test": "exit 0",

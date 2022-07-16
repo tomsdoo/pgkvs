@@ -6,6 +6,6 @@
     "outDir": "./dist/cjs/",
   },
   "files":[
-    "src/postgresqlclient.ts"
+    "src/pgkvs.ts"
   ]
 }

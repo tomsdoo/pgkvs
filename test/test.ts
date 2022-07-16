@@ -6,7 +6,7 @@ import {describe, it } from "mocha";
 import { strict as assert } from "assert";
 import { v4 as uuidv4 } from "uuid";
 
-import { PgKvs } from "../src/postgresqlclient";
+import { PgKvs } from "../src/pgkvs";
 const uri = process.env.POSTGRESQL_URI as string;
 const tableName = uuidv4();
 

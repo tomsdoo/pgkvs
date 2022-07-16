@@ -1,16 +1,16 @@
-# @tomsd/postgresqlclient
+# @tomsd/pgkvs
 
 It's a key value store handler with postgresql, for easy-use,
 
 ## Installation
 ``` shell
-npm install @tomsd/postgresqlclient
+npm install @tomsd/pgkvs
 ```
 
 ## Usage
 
 ``` typescript
-import { PgKvs } from "@tomsd/postgresqlclient";
+import { PgKvs } from "@tomsd/pgkvs";
 
 const uri = "postgres://...";
 const tableName = "testTable";
