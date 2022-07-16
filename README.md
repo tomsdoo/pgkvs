@@ -1,37 +1,37 @@
-# @tomsd/postgresqlclient
+# @tomsd/pgkvs
 
-It's a handy postgresql client for easy-use, using postgresql database just like key value sture.
+It's a key value store handler with postgresql, for easy-use,
 
 ## Installation
 ``` shell
-npm install @tomsd/postgresqlclient
+npm install @tomsd/pgkvs
 ```
 
 ## Usage
 
 ``` typescript
-import { PGClient } from "@tomsd/postgresqlclient";
+import { PgKvs } from "@tomsd/pgkvs";
 
 const uri = "postgres://...";
 const tableName = "testTable";
 
 (async () => {
 
-  const client = new PGClient(uri, tableName);
+  const store = new PgKvs(uri, tableName);
 
-  const record = await client.upsert({ name: "alice" });
+  const record = await store.upsert({ name: "alice" });
   console.log(record); // { _id: "xxx", name: "alice" }
 
   console.log(
-    await client.getAll()
+    await store.getAll()
   ); // [{ _id: "xxx", name: "alice" }]
 
   console.log(
-    await client.get(record._id)
+    await store.get(record._id)
   ); // { _id: "xxx", name: "alice" }
 
   console.log(
-    await client.upsert({
+    await store.upsert({
       ...record,
       name: "bob",
       age: 25
@@ -39,7 +39,7 @@ const tableName = "testTable";
   ); // { _id: "xxx", name: "bob", age: 25 }
 
   console.log(
-    await client.remove(record._id)
+    await store.remove(record._id)
   ); // true
 
 })();

@@ -6,11 +6,11 @@ import {describe, it } from "mocha";
 import { strict as assert } from "assert";
 import { v4 as uuidv4 } from "uuid";
 
-import { PGClient } from "../src/postgresqlclient";
+import { PgKvs } from "../src/pgkvs";
 const uri = process.env.POSTGRESQL_URI as string;
 const tableName = uuidv4();
 
-const client = new PGClient(uri, tableName);
+const store = new PgKvs(uri, tableName);
 const testingId = uuidv4();
 const savingObj = {
   _id: testingId,
@@ -18,29 +18,29 @@ const savingObj = {
 };
 
 
-describe("PGClient", () => {
+describe("PgKvs", () => {
   after(async () => {
-    await client.dropTable();
-    client.destroy();
+    await store.dropTable();
+    store.destroy();
   });
 
   it("upsert()", async () => {
-    const record = await client.upsert(savingObj);
+    const record = await store.upsert(savingObj);
     assert.equal(record.name, savingObj.name);
   });
 
   it("get()", async () => {
-    const record = await client.get(testingId);
+    const record = await store.get(testingId);
     assert.equal(record.name, savingObj.name);
   });
 
   it("getAll()", async () => {
-    const records = await client.getAll();
+    const records = await store.getAll();
     assert.equal(records.length, 1);
   });
 
   it("upsert()", async () => {
-    const record = await client.upsert({
+    const record = await store.upsert({
       ...savingObj,
       name: "bob"
     });
@@ -48,22 +48,22 @@ describe("PGClient", () => {
   });
 
   it("get() after updated", async () => {
-    const record = await client.get(testingId);
+    const record = await store.get(testingId);
     assert.equal(record.name, "bob");
   });
 
   it("remove()", async () => {
-    const result = await client.remove(testingId);
+    const result = await store.remove(testingId);
     assert.equal(result, true);
   });
 
   it("getAll() after removal", async () => {
-    const records = await client.getAll();
+    const records = await store.getAll();
     assert.equal(records.length, 0);
   });
 
   it("get() after removal", async () => {
-    const record = await client.get(testingId);
+    const record = await store.get(testingId);
     assert.equal(record, undefined);
   });
 });
