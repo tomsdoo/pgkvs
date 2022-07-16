@@ -2,6 +2,12 @@
 
 It's a key value store handler that the repository is a postgresql database, for easy-use.
 
+![npm](https://img.shields.io/npm/v/@tomsd/pgkvs)
+![NPM](https://img.shields.io/npm/l/@tomsd/pgkvs)
+![npms.io (quality)](https://img.shields.io/npms-io/quality-score/@tomsd/pgkvs)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/@tomsd/pgkvs)
+![Maintenance](https://img.shields.io/maintenance/yes/2022)
+
 ## Installation
 ``` shell
 npm install @tomsd/pgkvs
