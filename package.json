@@ -15,6 +15,10 @@
   ],
   "author": "tom",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomsdoo/pgkvs"
+  },
   "dependencies": {
     "knex": "^2.1.0",
     "pg": "^8.7.3",
