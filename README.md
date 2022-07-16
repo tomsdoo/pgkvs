@@ -1,6 +1,6 @@
 # @tomsd/pgkvs
 
-It's a key value store handler with postgresql, for easy-use,
+It's a key value store handler that the repository is a postgresql database, for easy-use.
 
 ## Installation
 ``` shell
