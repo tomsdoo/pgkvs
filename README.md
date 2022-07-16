@@ -1,6 +1,6 @@
 # @tomsd/postgresqlclient
 
-It's a handy postgresql client for easy-use.
+It's a handy postgresql client for easy-use, using postgresql database just like key value sture.
 
 ## Installation
 ``` shell
@@ -18,14 +18,29 @@ const tableName = "testTable";
 (async () => {
 
   const client = new PGClient(uri, tableName);
-  console.log(await client.getAll());
 
   const record = await client.upsert({ name: "alice" });
-  console.log(record);
-  console.log(await client.get(record._id));
-  console.log(await client.getAll());
-  console.log(await client.remove(record._id));
-  console.log(await client.getAll());
+  console.log(record); // { _id: "xxx", name: "alice" }
+
+  console.log(
+    await client.getAll()
+  ); // [{ _id: "xxx", name: "alice" }]
+
+  console.log(
+    await client.get(record._id)
+  ); // { _id: "xxx", name: "alice" }
+
+  console.log(
+    await client.upsert({
+      ...record,
+      name: "bob",
+      age: 25
+    })
+  ); // { _id: "xxx", name: "bob", age: 25 }
+
+  console.log(
+    await client.remove(record._id)
+  ); // true
 
 })();
 ```
