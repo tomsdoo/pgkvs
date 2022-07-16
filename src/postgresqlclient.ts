@@ -12,7 +12,7 @@ type Record = {
   data: any;
 };
 
-export class PGClient {
+export class PgKvs {
   protected connectionString: string;
   protected tableName: string;
   protected initialized: boolean;
