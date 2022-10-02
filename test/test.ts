@@ -2,7 +2,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import {describe, it } from "mocha";
+import { describe, it } from "mocha";
 import { strict as assert } from "assert";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,9 +14,8 @@ const store = new PgKvs(uri, tableName);
 const testingId = uuidv4();
 const savingObj = {
   _id: testingId,
-  name: "alice"
+  name: "alice",
 };
-
 
 describe("PgKvs", () => {
   after(async () => {
@@ -42,7 +41,7 @@ describe("PgKvs", () => {
   it("upsert()", async () => {
     const record = await store.upsert({
       ...savingObj,
-      name: "bob"
+      name: "bob",
     });
     assert.equal(record.name, "bob");
   });
