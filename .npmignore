@@ -3,6 +3,7 @@ node_modules/
 src/
 .env
 .env.default
+.eslintrc.js
 .gitignore
 .npmignore
 package-lock.json
