@@ -26,7 +26,7 @@ describe("test", () => {
       .withArgs(tableName)
       .returns({
         select: async () =>
-          Promise.resolve([
+          await Promise.resolve([
             { id: "a", data: { name: "a" } },
             { id: "b", data: { name: "b" } },
           ]),
@@ -56,7 +56,7 @@ describe("test", () => {
       .returns({
         where: () => ({
           first: async () =>
-            Promise.resolve({
+            await Promise.resolve({
               data: { name: "dummyName" },
             }),
         }),
@@ -82,8 +82,8 @@ describe("test", () => {
       .withArgs(tableName)
       .returns({
         where: ({ id }: { id: string }) => ({
-          first: async () => Promise.resolve({ id }),
-          update: async () => Promise.resolve({}),
+          first: async () => await Promise.resolve({ id }),
+          update: async () => await Promise.resolve({}),
         }),
       });
 
@@ -110,9 +110,9 @@ describe("test", () => {
       .withArgs(tableName)
       .returns({
         where: () => ({
-          first: async () => Promise.resolve(undefined),
+          first: async () => await Promise.resolve(undefined),
         }),
-        insert: async () => Promise.resolve({}),
+        insert: async () => await Promise.resolve({}),
       });
 
     assert.equal(
@@ -138,7 +138,7 @@ describe("test", () => {
       .withArgs(tableName)
       .returns({
         where: () => ({
-          del: async () => Promise.resolve({}),
+          del: async () => await Promise.resolve({}),
         }),
       });
 
