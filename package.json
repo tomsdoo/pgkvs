@@ -13,7 +13,7 @@
     "lint:src": "eslint src/**/*.ts",
     "lint:test": "eslint test/**/*.ts",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
-    "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/test.ts\" --timeout 30000"
+    "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_dburi.test.ts\" --timeout 30000"
   },
   "keywords": [
     "postgresql"
