@@ -1,12 +1,10 @@
-// @ts-ignore
-import dotenv from "dotenv";
-dotenv.config();
-
 import { describe, it } from "mocha";
 import { strict as assert } from "assert";
 import { v4 as uuidv4 } from "uuid";
-
 import { PgKvs } from "../src/pgkvs";
+import dotenv from "dotenv";
+dotenv.config();
+
 const uri = process.env.POSTGRESQL_URI as string;
 const tableName = uuidv4();
 
