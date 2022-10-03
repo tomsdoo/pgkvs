@@ -10,6 +10,7 @@
     "format": "npm run format:src && npm run format:test",
     "format:src": "prettier --write src/**/*.ts",
     "format:test": "prettier --write test/**/*.ts",
+    "lint:src": "eslint src/**/*.ts",
     "test": "exit 0",
     "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/test.ts\" --timeout 30000"
   },
