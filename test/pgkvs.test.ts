@@ -4,7 +4,6 @@ import { PgKvs } from "../src/pgkvs";
 
 import { mock } from "sinon";
 
-
 let store: PgKvs;
 const pgUri = "postgres://...";
 const tableName = "tableName";
@@ -26,19 +25,16 @@ describe("test", () => {
       .once()
       .withArgs(tableName)
       .returns({
-        select: async () => Promise.resolve([
-          { id: "a", data: { name: "a" }},
-          { id: "b", data: { name: "b" }},
-        ])
+        select: async () =>
+          Promise.resolve([
+            { id: "a", data: { name: "a" } },
+            { id: "b", data: { name: "b" } },
+          ]),
       });
 
     assert.equal(
-      await store.getAll()
-        .then(items => JSON.stringify(items)),
-      JSON.stringify([
-        { name: "a" },
-        { name: "b" }
-      ])
+      await store.getAll().then((items) => JSON.stringify(items)),
+      JSON.stringify([{ name: "a" }, { name: "b" }])
     );
 
     mocked.verify();
@@ -59,17 +55,14 @@ describe("test", () => {
       .withArgs(tableName)
       .returns({
         where: () => ({
-          first: async () => Promise.resolve({
-            data: { name: "dummyName" }
-          })
-        })
+          first: async () =>
+            Promise.resolve({
+              data: { name: "dummyName" },
+            }),
+        }),
       });
 
-    assert.equal(
-      await store.get("test")
-        .then(({ name }) => name),
-      "dummyName"
-    );
+    assert.equal(await store.get("test").then(({ name }) => name), "dummyName");
 
     mocked.verify();
     mocked.restore();
@@ -88,15 +81,14 @@ describe("test", () => {
       .twice()
       .withArgs(tableName)
       .returns({
-        where: ({ id }: { id: string; }) => ({
+        where: ({ id }: { id: string }) => ({
           first: async () => Promise.resolve({ id }),
-          update: async () => Promise.resolve({})
-        })
+          update: async () => Promise.resolve({}),
+        }),
       });
 
     assert.equal(
-      await store.upsert({ name: "dummyName" })
-        .then(({ name }) => name),
+      await store.upsert({ name: "dummyName" }).then(({ name }) => name),
       "dummyName"
     );
 
@@ -118,14 +110,13 @@ describe("test", () => {
       .withArgs(tableName)
       .returns({
         where: () => ({
-          first: async () => Promise.resolve(undefined)
+          first: async () => Promise.resolve(undefined),
         }),
-        insert: async () => Promise.resolve({})
+        insert: async () => Promise.resolve({}),
       });
 
     assert.equal(
-      await store.upsert({ name: "dummyName" })
-        .then(({ name }) => name),
+      await store.upsert({ name: "dummyName" }).then(({ name }) => name),
       "dummyName"
     );
 
@@ -147,14 +138,11 @@ describe("test", () => {
       .withArgs(tableName)
       .returns({
         where: () => ({
-          del: async () => Promise.resolve({})
-        })
+          del: async () => Promise.resolve({}),
+        }),
       });
 
-    assert.equal(
-      await store.remove("dummyId"),
-      true
-    );
+    assert.equal(await store.remove("dummyId"), true);
 
     mocked.verify();
     mocked.restore();
