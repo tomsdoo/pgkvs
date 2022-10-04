@@ -7,16 +7,19 @@
   "types": "dist/esm/pgkvs.d.ts",
   "scripts": {
     "build": "tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
-    "format": "npm run format:src && npm run format:test",
+    "format": "npm run format:src && npm run format:test && npm run format:document",
     "format:src": "prettier --write src/**/*.ts",
     "format:test": "prettier --write test/**/*.ts",
+    "format:document": "prettier --write docs/**/*.html",
     "lint:src": "eslint src/**/*.ts",
     "lint:test": "eslint test/**/*.ts",
     "prepare": "husky install",
+    "serve:doc": "mdbook --serve --directory docs",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
     "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_dburi.test.ts\" --timeout 30000"
   },
   "lint-staged": {
+    "docs/**/*.html": "npm run format:document",
     "src/**/*.ts": [
       "npm run lint:src",
       "npm run format:src"
@@ -41,6 +44,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@tomsd/md-book": "^0.17.0",
     "@types/mocha": "^9.1.1",
     "@types/sinon": "^10.0.13",
     "@types/uuid": "^8.3.4",
