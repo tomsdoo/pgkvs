@@ -1,12 +1,13 @@
 .github/
+.husky/
+docs/
 node_modules/
 src/
+test/
 .env
 .env.default
 .eslintrc.js
 .gitignore
 .npmignore
 package-lock.json
-tsconfig.base.json
-tsconfig.cjs.json
-tsconfig.esm.json
+tsconfig.*.json
