@@ -15,6 +15,10 @@
     "lint:test": "eslint test/**/*.ts",
     "prepare": "husky install",
     "serve:doc": "mdbook --serve --directory docs",
+    "build-pg": "docker image build -f Dockerfile -t pgkvs-postgres-image:v1.0.0 .",
+    "serve-pg": "docker run --rm -d -e POSTGRES_PASSWORD=password -p 5432:5432 --name pgkvs-postgres-instance pgkvs-postgres-image:v1.0.0",
+    "start-pg": "npm run build-pg && npm run serve-pg",
+    "stop-pg": "docker container stop pgkvs-postgresql-instance",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
     "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_dburi.test.ts\" --timeout 30000"
   },

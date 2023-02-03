@@ -5,7 +5,7 @@ import { PgKvs } from "../src/pgkvs";
 import dotenv from "dotenv";
 dotenv.config();
 
-const uri = process.env.POSTGRESQL_URI as string;
+const uri = "postgres://postgres:password@localhost:5432/testdb";
 const tableName = uuidv4();
 
 const store = new PgKvs(uri, tableName);
