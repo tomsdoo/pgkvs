@@ -1,5 +1,6 @@
 .github/
 .husky/
+docker/
 docs/
 node_modules/
 src/
@@ -9,5 +10,6 @@ test/
 .eslintrc.js
 .gitignore
 .npmignore
+Dockerfile
 package-lock.json
 tsconfig.*.json
