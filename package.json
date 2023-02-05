@@ -22,7 +22,7 @@
     "stop-docker-container": "docker container stop pgkvs-postgres-instance",
     "remove-docker-image": "docker image rm pgkvs-postgres-image:v1.0.0",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
-    "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_dburi.test.ts\" --timeout 30000"
+    "test_with_docker": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_docker.test.ts\" --timeout 30000"
   },
   "lint-staged": {
     "docs/**/*.html": "npm run format:document",
