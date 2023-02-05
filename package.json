@@ -22,7 +22,7 @@
     "stop-docker-container": "docker container stop pgkvs-postgres-instance",
     "remove-docker-image": "docker image rm pgkvs-postgres-image:v1.0.0",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
-    "test_with_dburi": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_dburi.test.ts\" --timeout 30000"
+    "test_with_docker": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_docker.test.ts\" --timeout 30000"
   },
   "lint-staged": {
     "docs/**/*.html": "npm run format:document",
@@ -55,7 +55,6 @@
     "@types/sinon": "^10.0.13",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
-    "dotenv": "^16.0.1",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
