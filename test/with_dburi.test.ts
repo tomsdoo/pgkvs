@@ -2,8 +2,6 @@ import { describe, it } from "mocha";
 import { strict as assert } from "assert";
 import { v4 as uuidv4 } from "uuid";
 import { PgKvs } from "../src/pgkvs";
-import dotenv from "dotenv";
-dotenv.config();
 
 const uri = "postgres://postgres:password@localhost:5432/testdb";
 const tableName = uuidv4();
