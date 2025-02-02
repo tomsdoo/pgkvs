@@ -45,28 +45,28 @@
     "url": "https://github.com/tomsdoo/pgkvs"
   },
   "dependencies": {
-    "knex": "^2.1.0",
-    "pg": "^8.7.3",
-    "uuid": "^8.3.2"
+    "knex": "2.5.1",
+    "pg": "8.13.1",
+    "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@tomsd/md-book": "^0.17.0",
-    "@types/mocha": "^9.1.1",
-    "@types/sinon": "^10.0.13",
-    "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.38.1",
-    "eslint": "^8.24.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard-with-typescript": "^23.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.3.0",
-    "eslint-plugin-promise": "^6.0.1",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "mocha": "^10.0.0",
-    "prettier": "^2.7.1",
-    "sinon": "^14.0.0",
-    "ts-node": "^10.8.1",
-    "typescript": "^4.8.4"
+    "@tomsd/md-book": "0.17.3",
+    "@types/mocha": "9.1.1",
+    "@types/sinon": "10.0.20",
+    "@types/uuid": "8.3.4",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "eslint": "8.57.1",
+    "eslint-config-prettier": "8.10.0",
+    "eslint-config-standard-with-typescript": "23.0.0",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-n": "15.7.0",
+    "eslint-plugin-promise": "6.6.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.3.0",
+    "mocha": "10.8.2",
+    "prettier": "2.8.8",
+    "sinon": "14.0.2",
+    "ts-node": "10.9.2",
+    "typescript": "4.9.5"
   }
 }
