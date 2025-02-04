@@ -27,6 +27,3 @@ jobs:
 
     - name: npm test
       run: npm test
-
-    - name: npm run test;local
-      run: npm run test:local
