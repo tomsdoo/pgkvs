@@ -1,3 +1,4 @@
 dist/
 node_modules/
+postgresql/data/
 .eslintrc.js

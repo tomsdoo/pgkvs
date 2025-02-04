@@ -1,5 +1,4 @@
-import { describe, it } from "mocha";
-import { strict as assert } from "assert";
+import { afterAll, describe, it, expect } from "vitest";
 import { v4 as uuidv4 } from "uuid";
 import { PgKvs } from "../src/pgkvs";
 
@@ -14,24 +13,24 @@ const savingObj = {
 };
 
 describe("PgKvs", () => {
-  after(async () => {
+  afterAll(async () => {
     await store.dropTable();
     store.destroy();
   });
 
   it("upsert()", async () => {
     const record = await store.upsert(savingObj);
-    assert.equal(record.name, savingObj.name);
+    expect(record).toHaveProperty("name", savingObj.name);
   });
 
   it("get()", async () => {
     const record = await store.get(testingId);
-    assert.equal(record.name, savingObj.name);
+    expect(record).toHaveProperty("name", savingObj.name);
   });
 
   it("getAll()", async () => {
     const records = await store.getAll();
-    assert.equal(records.length, 1);
+    expect(records).toHaveLength(1);
   });
 
   it("upsert()", async () => {
@@ -39,26 +38,26 @@ describe("PgKvs", () => {
       ...savingObj,
       name: "bob",
     });
-    assert.equal(record.name, "bob");
+    expect(record).toHaveProperty("name", "bob");
   });
 
   it("get() after updated", async () => {
     const record = await store.get(testingId);
-    assert.equal(record.name, "bob");
+    expect(record).toHaveProperty("name", "bob");
   });
 
   it("remove()", async () => {
     const result = await store.remove(testingId);
-    assert.equal(result, true);
+    expect(result).toBe(true);
   });
 
   it("getAll() after removal", async () => {
     const records = await store.getAll();
-    assert.equal(records.length, 0);
+    expect(records).toHaveLength(0);
   });
 
   it("get() after removal", async () => {
     const record = await store.get(testingId);
-    assert.equal(record, undefined);
+    expect(record).toBeUndefined();
   });
 });
