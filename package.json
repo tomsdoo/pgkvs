@@ -43,7 +43,7 @@
     "url": "https://github.com/tomsdoo/pgkvs"
   },
   "dependencies": {
-    "knex": "2.5.1",
+    "knex": "3.1.0",
     "pg": "8.13.1",
     "uuid": "11.0.5"
   },
