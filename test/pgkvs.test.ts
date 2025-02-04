@@ -1,150 +1,137 @@
-import { describe, it } from "mocha";
-import { strict as assert } from "assert";
+import { beforeEach, describe, it, expect, vi } from "vitest";
 import { PgKvs } from "../src/pgkvs";
 
-import { mock } from "sinon";
+vi.mock("uuid", () => ({
+  v4() {
+    return "dummyUuid";
+  },
+}));
 
 let store: PgKvs;
 const pgUri = "postgres://...";
 const tableName = "tableName";
 
 describe("test", () => {
-  before(() => {
+  beforeEach(() => {
     store = new PgKvs(pgUri, tableName);
   });
+
   it("getAll()", async () => {
-    const mocked = mock(store);
-    mocked
-      .expects("ensureInitialized")
-      .once()
-      .withArgs()
-      .returns(Promise.resolve(true));
+    vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
 
-    mocked
-      .expects("pg")
-      .once()
-      .withArgs(tableName)
-      .returns({
-        select: async () =>
-          await Promise.resolve([
-            { id: "a", data: { name: "a" } },
-            { id: "b", data: { name: "b" } },
-          ]),
-      });
-
-    assert.equal(
-      await store.getAll().then((items) => JSON.stringify(items)),
-      JSON.stringify([{ name: "a" }, { name: "b" }])
+    const spySelect = vi.fn(
+      async () =>
+        await Promise.resolve([
+          { id: "a", data: { name: "a" } },
+          { id: "b", data: { name: "b" } },
+        ])
     );
 
-    mocked.verify();
-    mocked.restore();
+    // @ts-expect-error
+    const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
+      select: spySelect,
+    }));
+
+    await expect(store.getAll()).resolves.toEqual([
+      { name: "a" },
+      { name: "b" },
+    ]);
+    expect(spyPg).toHaveBeenCalledWith(tableName);
+    expect(spySelect).toHaveBeenCalledWith("*");
   });
 
   it("get()", async () => {
-    const mocked = mock(store);
-    mocked
-      .expects("ensureInitialized")
-      .once()
-      .withArgs()
-      .returns(Promise.resolve(true));
-
-    mocked
-      .expects("pg")
-      .once()
-      .withArgs(tableName)
-      .returns({
-        where: () => ({
-          first: async () =>
-            await Promise.resolve({
-              data: { name: "dummyName" },
-            }),
-        }),
-      });
-
-    assert.equal(await store.get("test").then(({ name }) => name), "dummyName");
-
-    mocked.verify();
-    mocked.restore();
+    vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
+    const spyFirst = vi.fn(
+      async () =>
+        await Promise.resolve({
+          data: { name: "dummyName" },
+        })
+    );
+    const spyWhere = vi.fn(() => ({
+      first: spyFirst,
+    }));
+    // @ts-expect-error
+    const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
+      where: spyWhere,
+    }));
+    await expect(store.get("dummyId")).resolves.toEqual({
+      name: "dummyName",
+    });
+    expect(spyPg).toHaveBeenCalledWith(tableName);
+    expect(spyWhere).toHaveBeenCalledWith({ id: "dummyId" });
+    expect(spyFirst).toHaveBeenCalledWith();
   });
 
   it("upsert() - update", async () => {
-    const mocked = mock(store);
-    mocked
-      .expects("ensureInitialized")
-      .once()
-      .withArgs()
-      .returns(Promise.resolve(true));
-
-    mocked
-      .expects("pg")
-      .twice()
-      .withArgs(tableName)
-      .returns({
-        where: ({ id }: { id: string }) => ({
-          first: async () => await Promise.resolve({ id }),
-          update: async () => await Promise.resolve({}),
-        }),
-      });
-
-    assert.equal(
-      await store.upsert({ name: "dummyName" }).then(({ name }) => name),
-      "dummyName"
+    vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
+    const spyFirst = vi.fn(
+      async () => await Promise.resolve({ id: "dummyUuid" })
     );
-
-    mocked.verify();
-    mocked.restore();
+    const spyUpdate = vi.fn(async () => await Promise.resolve({}));
+    const spyWhere = vi.fn(() => ({
+      first: spyFirst,
+      update: spyUpdate,
+    }));
+    // @ts-expect-error
+    const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
+      where: spyWhere,
+    }));
+    await expect(store.upsert({ name: "dummyName" })).resolves.toEqual({
+      _id: "dummyUuid",
+      name: "dummyName",
+    });
+    expect(spyPg).toHaveBeenCalledWith(tableName);
+    expect(spyWhere).toHaveBeenCalledWith({ id: "dummyUuid" });
+    expect(spyFirst).toHaveBeenCalledWith();
+    expect(spyUpdate).toHaveBeenCalledWith({
+      data: {
+        _id: "dummyUuid",
+        name: "dummyName",
+      },
+    });
   });
 
   it("upsert() - insert", async () => {
-    const mocked = mock(store);
-    mocked
-      .expects("ensureInitialized")
-      .once()
-      .withArgs()
-      .returns(Promise.resolve(true));
-
-    mocked
-      .expects("pg")
-      .twice()
-      .withArgs(tableName)
-      .returns({
-        where: () => ({
-          first: async () => await Promise.resolve(undefined),
-        }),
-        insert: async () => await Promise.resolve({}),
-      });
-
-    assert.equal(
-      await store.upsert({ name: "dummyName" }).then(({ name }) => name),
-      "dummyName"
-    );
-
-    mocked.verify();
-    mocked.restore();
+    vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
+    const spyFirst = vi.fn(async () => await Promise.resolve(undefined));
+    const spyInsert = vi.fn(async () => await Promise.resolve({}));
+    const spyWhere = vi.fn(() => ({
+      first: spyFirst,
+    }));
+    // @ts-expect-error
+    const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
+      where: spyWhere,
+      insert: spyInsert,
+    }));
+    await expect(store.upsert({ name: "dummyName" })).resolves.toEqual({
+      _id: "dummyUuid",
+      name: "dummyName",
+    });
+    expect(spyPg).toHaveBeenCalledWith(tableName);
+    expect(spyWhere).toHaveBeenCalledWith({ id: "dummyUuid" });
+    expect(spyInsert).toHaveBeenCalledWith({
+      id: "dummyUuid",
+      data: {
+        _id: "dummyUuid",
+        name: "dummyName",
+      },
+    });
   });
 
   it("remove()", async () => {
-    const mocked = mock(store);
-    mocked
-      .expects("ensureInitialized")
-      .once()
-      .withArgs()
-      .returns(Promise.resolve(true));
-
-    mocked
-      .expects("pg")
-      .once()
-      .withArgs(tableName)
-      .returns({
-        where: () => ({
-          del: async () => await Promise.resolve({}),
-        }),
-      });
-
-    assert.equal(await store.remove("dummyId"), true);
-
-    mocked.verify();
-    mocked.restore();
+    vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
+    const spyDelete = vi.fn(async () => await Promise.resolve(undefined));
+    const spyWhere = vi.fn(() => ({
+      del: spyDelete,
+    }));
+    // @ts-expect-error
+    const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
+      where: spyWhere,
+    }));
+    await expect(store.remove("dummyId")).resolves.toBe(true);
+    expect(spyPg).toHaveBeenCalledWith(tableName);
+    expect(spyWhere).toHaveBeenCalledWith({ id: "dummyId" });
+    expect(spyDelete).toHaveBeenCalledWith();
   });
 });

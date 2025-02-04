@@ -15,14 +15,12 @@
     "lint:test": "eslint test/**/*.ts",
     "prepare": "husky install",
     "serve:doc": "mdbook --serve --directory docs",
-    "start-pg": "npm run build-docker-image && npm run start-docker-container",
-    "stop-pg": "npm run stop-docker-container && npm run remove-docker-image",
-    "build-docker-image": "docker image build -f Dockerfile -t pgkvs-postgres-image:v1.0.0 .",
-    "start-docker-container": "docker run --rm -d -e POSTGRES_PASSWORD=password -p 5432:5432 --name pgkvs-postgres-instance pgkvs-postgres-image:v1.0.0",
-    "stop-docker-container": "docker container stop pgkvs-postgres-instance",
-    "remove-docker-image": "docker image rm pgkvs-postgres-image:v1.0.0",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
-    "test_with_docker": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_docker.test.ts\" --timeout 30000"
+    "start:db": "docker compose build --no-cache && docker compose up -d",
+    "stop:db": "docker compose down",
+    "test:old": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
+    "test_with_docker": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_docker.test.ts\" --timeout 30000",
+    "test": "vitest --project node",
+    "test:local": "npm run start:db && vitest --project local"
   },
   "lint-staged": {
     "docs/**/*.html": "npm run format:document",
@@ -51,8 +49,6 @@
   },
   "devDependencies": {
     "@tomsd/md-book": "0.17.3",
-    "@types/mocha": "9.1.1",
-    "@types/sinon": "10.0.20",
     "@types/uuid": "8.3.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "eslint": "8.57.1",
@@ -63,10 +59,9 @@
     "eslint-plugin-promise": "6.6.0",
     "husky": "8.0.3",
     "lint-staged": "13.3.0",
-    "mocha": "10.8.2",
     "prettier": "2.8.8",
     "sinon": "14.0.2",
-    "ts-node": "10.9.2",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "vitest": "3.0.4"
   }
 }
