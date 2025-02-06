@@ -24,10 +24,10 @@ describe("test", () => {
         await Promise.resolve([
           { id: "a", data: { name: "a" } },
           { id: "b", data: { name: "b" } },
-        ])
+        ]),
     );
 
-    // @ts-expect-error
+    // @ts-expect-error protected access
     const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
       select: spySelect,
     }));
@@ -46,12 +46,12 @@ describe("test", () => {
       async () =>
         await Promise.resolve({
           data: { name: "dummyName" },
-        })
+        }),
     );
     const spyWhere = vi.fn(() => ({
       first: spyFirst,
     }));
-    // @ts-expect-error
+    // @ts-expect-error protected access
     const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
       where: spyWhere,
     }));
@@ -66,14 +66,14 @@ describe("test", () => {
   it("upsert() - update", async () => {
     vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
     const spyFirst = vi.fn(
-      async () => await Promise.resolve({ id: "dummyUuid" })
+      async () => await Promise.resolve({ id: "dummyUuid" }),
     );
     const spyUpdate = vi.fn(async () => await Promise.resolve({}));
     const spyWhere = vi.fn(() => ({
       first: spyFirst,
       update: spyUpdate,
     }));
-    // @ts-expect-error
+    // @ts-expect-error protected access
     const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
       where: spyWhere,
     }));
@@ -94,12 +94,13 @@ describe("test", () => {
 
   it("upsert() - insert", async () => {
     vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     const spyFirst = vi.fn(async () => await Promise.resolve(undefined));
     const spyInsert = vi.fn(async () => await Promise.resolve({}));
     const spyWhere = vi.fn(() => ({
       first: spyFirst,
     }));
-    // @ts-expect-error
+    // @ts-expect-error protected access
     const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
       where: spyWhere,
       insert: spyInsert,
@@ -121,11 +122,12 @@ describe("test", () => {
 
   it("remove()", async () => {
     vi.spyOn(store, "ensureInitialized").mockResolvedValue(true);
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     const spyDelete = vi.fn(async () => await Promise.resolve(undefined));
     const spyWhere = vi.fn(() => ({
       del: spyDelete,
     }));
-    // @ts-expect-error
+    // @ts-expect-error protected access
     const spyPg = vi.spyOn(store, "pg").mockImplementation(() => ({
       where: spyWhere,
     }));

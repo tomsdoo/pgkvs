@@ -19,22 +19,22 @@ describe("PgKvs", () => {
   });
 
   it("upsert()", async () => {
-    const record = await store.upsert(savingObj);
+    const record: unknown = await store.upsert(savingObj);
     expect(record).toHaveProperty("name", savingObj.name);
   });
 
   it("get()", async () => {
-    const record = await store.get(testingId);
+    const record: unknown = await store.get(testingId);
     expect(record).toHaveProperty("name", savingObj.name);
   });
 
   it("getAll()", async () => {
-    const records = await store.getAll();
+    const records: unknown = await store.getAll();
     expect(records).toHaveLength(1);
   });
 
   it("upsert()", async () => {
-    const record = await store.upsert({
+    const record: unknown = await store.upsert({
       ...savingObj,
       name: "bob",
     });
@@ -42,22 +42,22 @@ describe("PgKvs", () => {
   });
 
   it("get() after updated", async () => {
-    const record = await store.get(testingId);
+    const record: unknown = await store.get(testingId);
     expect(record).toHaveProperty("name", "bob");
   });
 
   it("remove()", async () => {
-    const result = await store.remove(testingId);
+    const result: unknown = await store.remove(testingId);
     expect(result).toBe(true);
   });
 
   it("getAll() after removal", async () => {
-    const records = await store.getAll();
+    const records: unknown = await store.getAll();
     expect(records).toHaveLength(0);
   });
 
   it("get() after removal", async () => {
-    const record = await store.get(testingId);
+    const record: unknown = await store.get(testingId);
     expect(record).toBeUndefined();
   });
 });
