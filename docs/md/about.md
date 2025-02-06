@@ -2,11 +2,15 @@
 
 It's a key value store handler that the repository is a postgresql database, for easy-use.
 
-![npm](https://img.shields.io/npm/v/@tomsd/pgkvs)
-![NPM](https://img.shields.io/npm/l/@tomsd/pgkvs)
-![npms.io (quality)](https://img.shields.io/npms-io/quality-score/@tomsd/pgkvs)
-![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/@tomsd/pgkvs)
-![Maintenance](https://img.shields.io/maintenance/yes/2023)
+![npm](https://img.shields.io/npm/v/@tomsd/pgkvs?style=for-the-badge&logo=npm)
+![NPM](https://img.shields.io/npm/l/@tomsd/pgkvs?style=for-the-badge&logo=npm)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-222?style=for-the-badge&logo=postgresql)
+
+
+![ci](https://img.shields.io/github/actions/workflow/status/tomsdoo/pgkvs/ci.yml?style=social&logo=github)
+![checks](https://img.shields.io/github/check-runs/tomsdoo/pgkvs/main?style=social&logo=github)
+![top language](https://img.shields.io/github/languages/top/tomsdoo/pgkvs?style=social&logo=typescript)
+
 
 [![](https://nodei.co/npm/@tomsd/pgkvs.svg?mini=true)](https://www.npmjs.com/package/@tomsd/pgkvs)
 
