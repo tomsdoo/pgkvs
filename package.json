@@ -2,11 +2,18 @@
   "name": "@tomsd/pgkvs",
   "version": "1.1.0",
   "description": "It's a key value store handler that the repository is a postgresql database, for easy-use.",
-  "main": "dist/cjs/pgkvs.js",
-  "module": "dist/esm/pgkvs.js",
-  "types": "dist/esm/pgkvs.d.ts",
+  "expots": {
+    ".": {
+      "types": "./dist/pgkvs.d.ts",
+      "import": "./dist/pgkvs.esm.js",
+      "require": "./dist/pgkvs.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
+    "build": "tsup",
     "format": "npm run format:src && npm run format:test && npm run format:document",
     "format:src": "prettier --write src/**/*.ts",
     "format:test": "prettier --write __test__/**/*.ts",
@@ -16,8 +23,6 @@
     "serve:doc": "mdbook --serve --directory docs",
     "start:db": "docker compose build --no-cache && docker compose up -d",
     "stop:db": "docker compose down",
-    "test:old": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/pgkvs.test.ts\" --timeout 30000",
-    "test_with_docker": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/with_docker.test.ts\" --timeout 30000",
     "test": "vitest --project node",
     "test:local": "npm run start:db && vitest --project local"
   },
@@ -62,6 +67,7 @@
     "husky": "9.1.7",
     "lint-staged": "15.4.3",
     "prettier": "3.4.2",
+    "tsup": "8.3.6",
     "tsx": "4.19.2",
     "typescript": "5.7.3",
     "vitest": "3.0.5"
