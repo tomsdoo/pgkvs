@@ -38,7 +38,7 @@ export default [
     languageOptions: {
       parser: parserTs,
       parserOptions: {
-        project: "tsconfig.lint.json",
+        project: "tsconfig.json",
         sourceType: "module",
         ecmaVersion: "latest",
       },
@@ -53,7 +53,7 @@ export default [
     languageOptions: {
       parser: parserTs,
       parserOptions: {
-        project: "tsconfig.base.json",
+        project: "tsconfig.json",
         sourceType: "module",
         ecmaVersion: "latest",
       },
@@ -63,7 +63,7 @@ export default [
         node: true,
         typescript: {
           typescript: tsResolver,
-          project: ["./tsconfig.base.json"],
+          project: ["./tsconfig.json"],
         },
       },
     },
@@ -94,7 +94,7 @@ export default [
     languageOptions: {
       parser: parserTs,
       parserOptions: {
-        project: "./tsconfig.base.json",
+        project: "./tsconfig.json",
         sourceType: "module",
         ecmaVersion: "latest",
       },
@@ -104,7 +104,7 @@ export default [
         node: true,
         typescript: {
           typescript: tsResolver,
-          project: ["./tsconfig.base.json"],
+          project: ["./tsconfig.json"],
         },
       },
     },
