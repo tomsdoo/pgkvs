@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, vi } from "vitest";
-import { PgKvs } from "../src/pgkvs";
+import { PgKvs } from "@/pgkvs";
+import type { Knex } from "knex";
 
 vi.mock("uuid", () => ({
   v4() {
@@ -7,13 +8,19 @@ vi.mock("uuid", () => ({
   },
 }));
 
-let store: PgKvs;
+let store: PgKvs<{
+  _id: string;
+  name: string;
+}>;
 const pgUri = "postgres://...";
 const tableName = "tableName";
 
 describe("test", () => {
   beforeEach(() => {
-    store = new PgKvs(pgUri, tableName);
+    store = new PgKvs<{
+      _id: string;
+      name: string;
+    }>(pgUri, tableName);
   });
 
   it("getAll()", async () => {

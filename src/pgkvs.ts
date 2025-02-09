@@ -25,7 +25,7 @@ interface IResult {
   command: string;
 }
 
-export class PgKvs {
+export class PgKvs<T = unknown> {
   protected connectionString: string;
   protected tableName: string;
   protected initialized: boolean;
@@ -77,24 +77,22 @@ export class PgKvs {
     });
   }
 
-  public async getAll<T = unknown>(): Promise<T[]> {
+  public async getAll(): Promise<T[]> {
     await this.ensureInitialized();
-    return (await this.pg(this.tableName)
+    return await this.pg(this.tableName)
       .select("*")
-      .then((records: Record[]) => records.map(({ data }) => data))) as T[];
+      .then((records: Array<Record<T>>) => records.map(({ data }) => data));
   }
 
-  public async get<T = unknown>(id: string): Promise<T> {
+  public async get(id: string): Promise<T | undefined> {
     await this.ensureInitialized();
-    return (await this.pg(this.tableName)
+    return await this.pg(this.tableName)
       .where({ id })
       .first()
-      .then((record: Record) => record?.data)) as T;
+      .then((record: Record<T>) => record?.data);
   }
 
-  public async upsert<T = unknown>(
-    data: Omit<T, "_id"> & { _id?: string },
-  ): Promise<T> {
+  public async upsert(data: Omit<T, "_id"> & { _id?: string }): Promise<T> {
     const savingData = {
       _id: uuidv4(),
       ...data,
