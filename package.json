@@ -2,6 +2,7 @@
   "name": "@tomsd/pgkvs",
   "version": "1.1.0",
   "description": "It's a key value store handler that the repository is a postgresql database, for easy-use.",
+  "type": "module",
   "expots": {
     ".": {
       "types": "./dist/pgkvs.d.ts",
